@@ -1,0 +1,27 @@
+services:
+#define app service
+  app:
+    image: node:18-alpine # take image alpine
+    command: sh -c "yarn install && yarn run dev" # no require in order 
+    ports: 
+    - 3000:3000 #define port
+    working_dir: /app # can define relatieve patth 
+    volumes:
+      - ./:/app
+      #moving environment variable
+    environment:
+      MYSQL_HOST: mysql 
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+# define database service
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+volumes:
+  todo-mysql-data:
+
+
+
+
